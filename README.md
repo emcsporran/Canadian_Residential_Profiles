@@ -5,7 +5,9 @@ This is repository contains analysis and modificaitons to openly available Canad
 Canada is an environement that sees weather extremes and variation, even within its' own borders. However, it is challenging to find residential load data that has detailed precision (time < 15mins), and covers a whole year. The significnance of this as an application is that to increase the efficiency of households in a canadaian setting, it is important to be able to test/reference accurate canadian data. Canadian households typically use combinations of air conditioning (AC), and heating units (HU), as well as many other thermostatically controlled loads (TCLs). This is because during the summer temperatures can reach mid-high 30s Celsius region-depending, and in the winter temperatures can be consistently aroun -25 to -35 Celsius, in the more populated regions, region-depending.
 
 %TO-DO: Find Gov Can resource that shows historical temperatures per province, and territory.
+
 %TO-DO: Find the Gov Can resource that shows [historical generation](https://www.cer-rec.gc.ca/en/data-analysis/energy-markets/provincial-territorial-energy-profiles/provincial-territorial-energy-profiles-canada.html) per province, and territory.
+
 %TO-DO: Find article that [reviewed available open source data sets](https://www.sciencedirect.com/science/article/pii/S037877882030815X) for research purposes. 
 
 ## Resources
