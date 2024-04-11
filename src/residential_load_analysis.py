@@ -3,8 +3,12 @@ import os
 import numpy as np
 import matplotlib.pyplot as plt
 import pandas as pd
+from sklearn.cluster import KMeans
+from datetime import date
 
 # Creation Info
+from src.house_data import house_data
+
 author_init = "ECM"
 
 # Path generation
@@ -24,15 +28,58 @@ def get_num(filenames, criteria):
         else:
             if filenames[i].__contains__(criteria[0]):
                 num = num + 1
-
     return num
 
 
+def get_kmeans(house_arr):
+    data = list(zip(house_arr.annual_total))
+    inertias = []
+    for i in range(len(house_arr) - 1):
+        kmeans = KMeans(n_clusters=i)
+        kmeans.fit(data)
+        inertias.append(kmeans.inertia_)
+    plt.plot(range(len(house_arr) - 1), inertias, marker='o')
+    plt.title('Elbow method')
+    plt.xlabel('Number of clusters')
+    plt.ylabel('Inertia')
+    plt.show()
+
+
+def sort_houses(filename):
+    file_temp = pd.read_csv(filename)
+    house_arr = []
+    for i in range(len(file_temp)):
+        path_temp = os.path.join(path_in, (file_temp.loc[i].house + ".csv"))
+        house_arr.append(house_data(path_temp, file_temp.loc[i]))
+    return house_arr
+
+
 # Main Script
+houses = sort_houses(os.path.join(path_in, "housestat.csv"))
 criteria = list()
 criteria.append("H")
 criteria.append("DHW")
 house_num = get_num(filenames, criteria)
 print("There are {house} data files in the path: \n{path}".format(house=house_num,path=path_in))
+quick_file_check = get_num(filenames, "quick_access")
+run_old_bool = 0
+if quick_file_check > 0:
+    print("You have an existing data file with the compiled values of household consumption.\n"
+          "Running the data compilation from scratch will take some time.\n"
+          "Would you like to continue with the existing file (Y/N)?\n")
+    if input() == "Y":
+        run_old_bool = 1
+        print("The process will continue with the existing data file.")
+    else:
+        run_old_bool = 0
+        print("The process will start from scratch.")
+else:
+    run_old_bool = 0
+    print("\nNo previous data file detected.")
+    print("The process will start from scratch.")
 
-#file_temp = pd.read_csv(os.path.join(path_in, filenames[i]))
+# Leaving these for the development.
+print(houses[1].__str__())
+print(houses[1].appliance_info())
+houses[1].readdata()
+houses[1].getannual()
