@@ -1,13 +1,11 @@
 # Module imports
 import os
-import numpy as np
 import matplotlib.pyplot as plt
 import pandas as pd
 from sklearn.cluster import KMeans
-from datetime import date
 
 # Creation Info
-from src.house_data import house_data
+from src.lib.house_data import house_data
 
 author_init = "ECM"
 
@@ -81,5 +79,4 @@ else:
 # Leaving these for the development.
 print(houses[1].__str__())
 print(houses[1].appliance_info())
-houses[1].readdata()
-houses[1].getannual()
+houses[1].data_init()
